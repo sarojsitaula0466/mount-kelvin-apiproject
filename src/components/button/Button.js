@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./button.css";
-import socket from '../../network/socket';
-import config from '../../config.js';
+import socket from "../../network/socket";
+import config from "../../config.js";
 
 const Button = () => {
   const API_PATH_APPLY_SCENE = "apply/scene";
@@ -19,11 +19,11 @@ const Button = () => {
   const STATE_THIRTY_ON = 0.3;
   const STATE_ALL_OFF = 0;
 
-  const [currentState,setCurrentState] = useState(STATE_ALL_ON);
+  const [currentState, setCurrentState] = useState(STATE_ALL_ON);
 
   const SITEKEY = config.API_KEY;
   const devices = [];
-  
+
   useEffect(() => {
     // Gather all dimmable devices
     socket.on("site", ({ siteKey, data }) => {
@@ -31,9 +31,7 @@ const Button = () => {
         data.devices
           .filter((item) => item.type === STR_DIMMABLE)
           .forEach((item) => devices.push(item.id));
-        console.log(devices);
       }
-      console.log(data);
     });
   });
 
@@ -97,7 +95,9 @@ const Button = () => {
       <div className="button-container">
         <div className="button-wrapper">
           <button
-            className={currentState === STATE_ALL_ON ? "clkBtn all-on" : "btn all-on"}
+            className={
+              currentState === STATE_ALL_ON ? "clkBtn all-on" : "btn all-on"
+            }
             onClick={handleAllOn}
           >
             <p>All on</p>
@@ -105,7 +105,11 @@ const Button = () => {
         </div>
         <div className="button-wrapper">
           <button
-            className={currentState === STATE_SEVENTY_ON  ? "clkBtn onSeventy" : "btn onSeventy" }
+            className={
+              currentState === STATE_SEVENTY_ON
+                ? "clkBtn onSeventy"
+                : "btn onSeventy"
+            }
             onClick={handleOnSeventy}
           >
             <p>70 %</p>
@@ -115,7 +119,11 @@ const Button = () => {
       <div className="button-container">
         <div className="button-wrapper">
           <button
-            className={currentState === STATE_THIRTY_ON ? "clkBtn onThirty": "btn onThirty" }
+            className={
+              currentState === STATE_THIRTY_ON
+                ? "clkBtn onThirty"
+                : "btn onThirty"
+            }
             onClick={handleOnThirty}
           >
             <p>30 %</p>
@@ -123,7 +131,9 @@ const Button = () => {
         </div>
         <div className="button-wrapper">
           <button
-            className={currentState === STATE_ALL_OFF ? "clkBtn all-off" : "btn all-off"}
+            className={
+              currentState === STATE_ALL_OFF ? "clkBtn all-off" : "btn all-off"
+            }
             onClick={handleAllOff}
           >
             <p>All off</p>
